@@ -39,6 +39,12 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # Slim HTML templating engine
 gem "slim-rails"
 
+# Jquery gem necessary for bootstrap
+gem 'jquery-rails'
+
+# Bootstrap front-end framework 
+gem 'bootstrap', '~> 4.2.1'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
