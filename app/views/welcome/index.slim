@@ -7,6 +7,11 @@
         .col-12
           h1 Weather App
           p Author: Vicente Fuenzalida
-      .row
-        .col-12
-          h2 City information should appear here
+  .row
+    .col-5
+    .col-2
+      h3 Cities
+      ul
+        - @cities.each do |city, data|
+          li= "#{city}, #{data["country"]}"
+    .col-5          
