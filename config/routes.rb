@@ -6,4 +6,5 @@ Rails.application.routes.draw do
 
   # Home route
   root to: 'welcome#index'
+  get 'request', to: 'weather#request'
 end
