@@ -2,7 +2,7 @@
 
 class WeatherChannel < ApplicationCable::Channel
   def subscribed
-    stream_from 'weather'
+    stream_from 'weather_channel'
   end
 
   def unsubscribed
@@ -10,7 +10,7 @@ class WeatherChannel < ApplicationCable::Channel
   end
 
   def speak(data)
-    ActionCable.server.broadcast('weather', forecast: render_forecast(data['forecast']))
+    ActionCable.server.broadcast 'weather_channel', message: data['message']
   end
 
   private

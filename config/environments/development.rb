@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -63,6 +65,7 @@ Rails.application.configure do
   config.action_cable.url = "ws://localhost:#{ENV['PORT']}/cable"
 
   # Logger
-  config.logger = Logger.new(STDOUT)
-  config.log_level = :info
+  logger           = ActiveSupport::Logger.new(STDOUT)
+  logger.formatter = config.log_formatter
+  config.logger = ActiveSupport::TaggedLogging.new(logger)
 end

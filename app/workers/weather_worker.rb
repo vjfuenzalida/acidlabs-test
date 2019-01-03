@@ -5,9 +5,21 @@ require 'sidekiq-scheduler'
 class WeatherWorker
   include Sidekiq::Worker
 
-  sidekiq_options queue: :cron, unique_for: 30.minutes
+  sidekiq_options queue: :weather_worker, unique_for: 30.minutes
 
   def perform
-    puts '[Worker Job] TODO: fetch weather information for the requested cities'
+    ActionCable.server.broadcast(
+      'weather_channel',
+      message: 'City Data'
+    )
+  end
+
+  private
+
+  def render_message(message)
+    ApplicationController.renderer.render(
+      partial: 'forecasts/forecast',
+      locals: { forecast: message }
+    )
   end
 end

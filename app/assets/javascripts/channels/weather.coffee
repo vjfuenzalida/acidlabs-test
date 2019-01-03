@@ -8,8 +8,8 @@ App.weather = App.cable.subscriptions.create "WeatherChannel",
     console.log("disconnected")
 
   received: (data) ->
-    # Called when there's incoming data on the websocket for this channel
-    console.log("received")
+    console.log("Received message:", data)
+    # $('#forecasts').append data['message']
 
-  speak: ->
-    @perform 'speak'
+  speak: (message) ->
+    @perform 'speak', message: message
