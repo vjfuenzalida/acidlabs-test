@@ -1,0 +1,5 @@
+weather_worker:
+  # cron: "1 * * * *"
+  class: WeatherWorker
+  every: '10s'
+  queue: weather_worker

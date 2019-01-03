@@ -45,6 +45,13 @@ gem 'jquery-rails'
 # Bootstrap front-end framework 
 gem 'bootstrap', '~> 4.2.1'
 
+# Job Scheduler
+gem 'sidekiq'
+
+# scheduler to mimick cron utility.
+gem 'sidekiq-scheduler', '~> 2.0', '>= 2.0.8'
+
+# HTTP requests
 gem 'faraday', '~> 0.9.2'
 
 group :development, :test do
