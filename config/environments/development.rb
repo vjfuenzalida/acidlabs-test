@@ -61,4 +61,8 @@ Rails.application.configure do
 
   # Action cable settings
   config.action_cable.url = "ws://localhost:#{ENV['PORT']}/cable"
+
+  # Logger
+  config.logger = Logger.new(STDOUT)
+  config.log_level = :info
 end
