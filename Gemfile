@@ -48,6 +48,8 @@ gem 'bootstrap', '~> 4.2.1'
 # Job Scheduler
 gem 'sidekiq'
 
+# scheduler to mimick cron utility.
+gem 'sidekiq-scheduler', '~> 2.0', '>= 2.0.8'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
