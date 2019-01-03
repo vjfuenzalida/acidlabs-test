@@ -1,5 +1,10 @@
 module ForecastIO
 
+  DEFAULT_CONFIGS = {
+    lang: "es",
+    units: "si",
+  }
+
   def self.api_endpoint
     @@api_endpoint ||= ENV['API_ENDPOINT']
   end
@@ -17,7 +22,7 @@ module ForecastIO
     forecast_url = "#{latitude},#{longitude}"
     forecast_response = self.get(forecast_url)
     if forecast_response.success?
-      return forecast_response.body
+      return JSON.parse(forecast_response.body)    
     end
   end
 
@@ -28,17 +33,26 @@ module ForecastIO
   private
 
   def self.get(path, params = {})    
-    self.connection.get path
+    self.connection.get do |req|
+      req.url path
+      req.headers['Content-Type'] = 'application/json'
+    end
   end
 
   def self.new_connection
     url = "#{self.api_endpoint}/#{self.api_key}"
     conn = Faraday.new(url: url) do |faraday|    
+      self.add_params(faraday)
       faraday.request  :url_encoded
-      faraday.response :logger # TODO: for debug purposes only!
-      faraday.adapter Faraday.default_adapter
+      faraday.adapter :typhoeus
     end
     conn
+  end
+
+  def self.add_params(faraday)
+    DEFAULT_CONFIGS.each do |key, value|
+      faraday.params[key] = value
+    end
   end
   
 end
