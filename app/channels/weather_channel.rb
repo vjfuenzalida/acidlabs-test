@@ -13,9 +13,4 @@ class WeatherChannel < ApplicationCable::Channel
     ActionCable.server.broadcast 'weather_channel', message: data['message']
   end
 
-  private
-
-  def render_forecast(forecast)
-    ApplicationController.render(partial: 'forecasts/forecast', locals: { forecast: forecast })
-  end
 end

@@ -1,11 +1,12 @@
 .card.text-center[class='border-success']
   .card-body
     a[href='#' style="text-decoration: none; color: black"]
-      h4.text-center.card-title = "#{city} (#{data['country']})"
-    p.card-text = "(#{data['latitude']},#{data['longitude']})"
-    p.card-text
-      = link_to "Some link", "#"
-  ul.list-group.list-group-flush
-    li.list-group-item= l(Time.now, format: :long)
-    .card-body
-      a.card-link[href="#"] Other Link
+      h4.text-center.card-title = "#{city[:name]} (#{city[:country]})"
+    p.card-text = "(#{city[:latitude]}, #{city[:longitude]})"
+    ul.list-group.list-group-flush
+      li.list-group-item[class="temp-#{city[:name]}"] 
+        = "Temperature: #{forecast[:temperature]} ºC"
+      li.list-group-item[class="day-#{city[:name]}"]
+        = forecast[:date].strftime("%A, %B %e, %Y")
+      li.list-group-item[class="hour-#{city[:name]}"]
+        = forecast[:date].strftime("%I:%M:%S %p")

@@ -19,6 +19,7 @@
 .row
   .col-12    
     .card-columns.d-flex.flex-wrap.justify-content-start
-      - @cities.each do |city, data|
+      - @cities.each do |city_name, city|
+        - forecast = @forecasts[city_name]
         .px-3.py-3.col-12.col-lg-4.col-md-4.col-sm-6
-          = render partial: "card", locals: {city: city, data: data}
+          = render partial: "card", locals: { city: city, forecast: forecast }
