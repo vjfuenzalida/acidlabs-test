@@ -40,7 +40,7 @@ module ForecastIO
     conn = Faraday.new(url: url) do |faraday|
       add_params(faraday)
       faraday.request :url_encoded
-      faraday.adapter :typhoeus
+      faraday.adapter Faraday.default_adapter
     end
     conn
   end

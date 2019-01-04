@@ -1,0 +1,12 @@
+.card.text-center[class='border-success']
+  .card-body
+    a[href='#' style="text-decoration: none; color: black"]
+      h4.text-center.card-title = "#{city[:name]} (#{city[:country]})"
+    p.card-text = "(#{city[:latitude]}, #{city[:longitude]})"
+    ul.list-group.list-group-flush
+      li.list-group-item[class="temp-#{city[:name]}"] 
+        = "Temperature: #{forecast[:temperature]} ºC"
+      li.list-group-item[class="day-#{city[:name]}"]
+        = forecast[:date].strftime("%A, %B %e, %Y")
+      li.list-group-item[class="hour-#{city[:name]}"]
+        = forecast[:date].strftime("%I:%M:%S %p")
