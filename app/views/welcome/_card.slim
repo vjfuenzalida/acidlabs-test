@@ -1,12 +1,20 @@
+- title = "#{city[:name]} (#{city[:country]})"
+- coords = "(#{city[:latitude]}, #{city[:longitude]})"
+- if forecast
+  - temp = "Temperature: #{forecast[:temperature]} ºC"
+  - day = forecast[:date].strftime("%A, %B %e, %Y")
+  - hour = forecast[:date].strftime("%I:%M:%S %p")
+- else
+  - temp = "Temperature: -"
+  - day = "Day: -"
+  - hour = "Hour: -"
+
 .card.text-center[class='border-success']
   .card-body
     a[href='#' style="text-decoration: none; color: black"]
-      h4.text-center.card-title = "#{city[:name]} (#{city[:country]})"
-    p.card-text = "(#{city[:latitude]}, #{city[:longitude]})"
+      h4.text-center.card-title = title    
+    p.card-text = coords
     ul.list-group.list-group-flush
-      li.list-group-item[class="temp-#{city[:name]}"] 
-        = "Temperature: #{forecast[:temperature]} ºC"
-      li.list-group-item[class="day-#{city[:name]}"]
-        = forecast[:date].strftime("%A, %B %e, %Y")
-      li.list-group-item[class="hour-#{city[:name]}"]
-        = forecast[:date].strftime("%I:%M:%S %p")
+      li.list-group-item[class="temp-#{city[:name]}"] = temp
+      li.list-group-item[class="day-#{city[:name]}"] = day
+      li.list-group-item[class="hour-#{city[:name]}"] = hour
