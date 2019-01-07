@@ -1,0 +1,17 @@
+- content_for :title, "Redis Summary"
+
+.container-fluid
+  .row
+    .col-12.text-center
+      .row
+        .col-12
+          h1 Redis Hashes
+
+  .row.my-3
+    .col-12
+      = render partial: 'forecasts', locals: { forecasts: @forecasts }
+  .row.my-3      
+    .col-5
+      = render partial: 'cities', locals: { cities: @cities }
+    .col-7
+      = render partial: 'errors', locals: { errors: @errors }

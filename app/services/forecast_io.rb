@@ -7,7 +7,7 @@ class FakeError < StandardError
   def initialize(message = nil, object = {}, random)
     @message = message || 'How unfortunate! The API Request Failed'
     @data = object.dup
-    @data[:timestamp] = DateTime.now.strftime('%Q')
+    @data[:timestamp] = DateTime.now.strftime('%s')
     @data[:random] = random
     @coords = "(#{data[:latitude]}, #{data[:longitude]})"
     @details = "Request for #{data[:name]} #{@coords} forecast failed."

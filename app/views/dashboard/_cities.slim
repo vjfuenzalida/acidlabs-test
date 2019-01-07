@@ -1,0 +1,23 @@
+h3.text-center Cities
+
+- unless cities.empty?
+
+  table.table.text-center.table-info
+    thead
+      tr
+        th City
+        th Country
+        th Latitude
+        th Longitude            
+    tbody
+      - cities.each do |name, city|
+        tr
+          td = city[:name]
+          td = city[:country]
+          td = city[:latitude]
+          td = city[:longitude]
+
+- else
+  .row.my-4
+    .col-12
+      h5.text-center.text-muted No cities available        
