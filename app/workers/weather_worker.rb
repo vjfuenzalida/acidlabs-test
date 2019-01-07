@@ -12,7 +12,7 @@ class WeatherWorker
 
   def perform
     if ENV['UPDATE_FORECASTS'] == 'true'
-      Rails.logger.info("Updating forecasts")
+      Rails.logger.info('Updating forecasts')
       forecasts = fetch_forecasts
       save_forecasts(forecasts)
     end
@@ -30,10 +30,16 @@ class WeatherWorker
   def fetch_forecasts
     cities = RedisHelper.cities
     cities.map do |city_name, data|
-      forecast = ForecastIO.forecast(data[:latitude], data[:longitude])
+      forecast = request_until_success(data)
       forecast[:name] = city_name
       forecast
     end
+  end
+
+  def request_until_success(data)
+    response = ForecastIO.forecast(data)
+    response = ForecastIO.forecast(data) while response[:status] == :failed
+    return response[:forecast] if response[:status] == :success
   end
 
   def save_forecasts(forecasts)

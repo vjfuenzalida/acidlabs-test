@@ -1,5 +1,21 @@
 # frozen_string_literal: true
 
+# Special error class to mock a request failure
+class FakeError < StandardError
+  attr_reader :data
+  attr_reader :details
+  def initialize(message = nil, object = {}, random)
+    @message = message || 'How unfortunate! The API Request Failed'
+    @data = object.dup
+    @data[:timestamp] = DateTime.now.strftime('%Q')
+    @data[:random] = random
+    @coords = "(#{data[:latitude]}, #{data[:longitude]})"
+    @details = "Request for #{data[:name]} #{@coords} forecast failed."
+    super(@message)
+  end
+end
+
+# This module is in charge of making requests to the weather API
 module ForecastIO
   DEFAULT_CONFIGS = {
     lang: 'es',
@@ -18,14 +34,23 @@ module ForecastIO
     @@connection ||= new_connection
   end
 
-  def self.forecast(latitude, longitude)
-    forecast_url = "#{latitude},#{longitude}"
-    forecast_response = get(forecast_url)
-    return JSON.parse(forecast_response.body) if forecast_response.success?
-  end
+  def self.forecast(data)
+    forecast_url = "#{data[:latitude]},#{data[:longitude]}"
+    response = get(forecast_url)
+    random = rand(0.0..1.0)
+    raise FakeError.new(nil, data, random) if random < 0.1
 
-  def self.fake_forecast
-    forecast(37.8267, -122.4233)
+    if response.success?
+      forecast = JSON.parse(response.body)
+      return { status: :success, forecast: forecast }
+    end
+
+    { status: :failed } # won't raise the same FakeError
+  rescue FakeError => e
+    Rails.logger.error e.message
+    Rails.logger.error e.details
+    RedisHelper.save_error(e.data)
+    { status: :failed }
   end
 
   def self.get(path, _params = {})
