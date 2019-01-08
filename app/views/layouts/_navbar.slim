@@ -1,5 +1,5 @@
 nav.navbar.navbar-dark.bg-info.navbar-expand-lg
-  a.navbar-brand[href="/"]
+  a.navbar-brand.text-dark[href="/"]
     | Weather App
   button.navbar-toggler[type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"]
     span.navbar-toggler-icon
@@ -9,9 +9,9 @@ nav.navbar.navbar-dark.bg-info.navbar-expand-lg
       li.nav-item[class = (current_page?(root_path) ? "active" : nil)]
         a.nav-link[href="/"]
           | Home 
-      / li.nav-item[class = (current_page?(dashboards_path) ? "active" : nil)]
-      /   a.nav-link[href="/dashboard"]
-      /     | Redis Dashboard
+      li.nav-item[class = (current_page?(dashboard_index_path) ? "active" : nil)]
+        a.nav-link[href="/dashboard"]
+          | Redis Dashboard
 
   #navbarNav.collapse.navbar-collapse.w-100.order-2
     ul.navbar-nav.ml-auto

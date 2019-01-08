@@ -5,12 +5,13 @@ h3.text-center Forecasts
   table.table.text-center.table-success
     thead
       tr
-        th City        
-        th Summary
-        th Temperature
-        th Humidity          
-        th UV index
-        th Timestamp
+        th[style="width: 15%"] City        
+        th[style="width: 5%"]
+        th[style="width: 15%"] Summary
+        th[style="width: 15%"] Temperature
+        th[style="width: 15%"] Humidity          
+        th[style="width: 15%"] UV index
+        th[style="width: 20%"] Request Time
     tbody
       - forecasts.each do |city, data|
         - date = DateTime.strptime(data[:time].to_s,'%s').in_time_zone()
@@ -18,6 +19,7 @@ h3.text-center Forecasts
           td = city
           td
             img[src="https://darksky.net/images/weather-icons/#{data[:icon]}.png" style="height: 30px; width: 30px;"]
+          td.text-left          
             span.ml-4 = data[:summary]
           td = "#{data[:temperature].round(0)} ºC"
           td = "#{(data[:humidity] * 100).round(0)}%"

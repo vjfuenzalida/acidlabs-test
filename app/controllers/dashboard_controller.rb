@@ -6,6 +6,6 @@ class DashboardController < ApplicationController
       [city, f[:currently]]
     end.to_h
     @cities = RedisHelper.cities
-    @errors = RedisHelper.errors
+    @errors = RedisHelper.errors.sort.reverse
   end
 end
