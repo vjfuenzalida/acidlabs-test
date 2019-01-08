@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   # endpoint to request updates
   get 'forecast', to: 'weather#forecast'
 
+  # endpoint to display redis contents
+  resources :dashboard, only: :index
+
   # sidekiq manager
   mount Sidekiq::Web, at: '/sidekiq'
 end
