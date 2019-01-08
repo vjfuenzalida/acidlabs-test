@@ -1,25 +1,16 @@
 - content_for :title, "Home"
 
 .container-fluid
-  .row
+  .row.mt-3
     .col-12.text-center
       .row
         .col-12
-          h1 Weather App
-          p Author: Vicente Fuenzalida
-      .row
-        .col-12
-          h2 City Information
-
-.row.col-md-8.col-md-offset-2
-  h1
-  .panel.panel-default
-    #forecasts.panel-body
-
-.row
-  .col-12    
-    .card-columns.d-flex.flex-wrap.justify-content-start
-      - @cities.each do |city_name, city|
-        - forecast = @forecasts[city_name]
-        .px-3.py-3.col-12.col-lg-4.col-md-4.col-sm-6
-          = render partial: "card", locals: { city: city, forecast: forecast }
+          h1 Forecasts
+          
+  .row
+    .col-12    
+      .card-columns.d-flex.flex-wrap.justify-content-start
+        - @cities.each do |city_name, city|
+          - forecast = @forecasts[city_name]
+          .px-3.py-3.col-12.col-lg-4.col-md-4.col-sm-6
+            = render partial: "card", locals: { city: city, forecast: forecast }
